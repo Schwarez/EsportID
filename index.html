@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Informasi Esport Terbaru</title>
+<style>
+  /* Reset dan dasar */
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #121212;
+    color: #e1e1e1;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a {
+    color: #00bfa5;
+    text-decoration: none;
+  }
+  a:hover, a:focus {
+    text-decoration: underline;
+    outline:none;
+  }
+
+  /* Container Utility */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header {
+    background: #1f1f1f;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #333;
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  .logo {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: #00bfa5;
+    letter-spacing: 2px;
+  }
+
+  nav {
+    display: flex;
+    gap: 24px;
+  }
+
+  nav a {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  nav a:hover, nav a:focus {
+    border-bottom: 2px solid #00bfa5;
+  }
+
+  /* Mobile menu toggle */
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #00bfa5;
+    cursor: pointer;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, #00bfa5dd 0%, #005f53dd 100%);
+    padding: 100px 24px 80px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 24px;
+  }
+
+  .hero p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    color: #d0f7ef;
+  }
+
+  /* Section styles */
+  section {
+    padding: 64px 0;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 32px;
+    color: #00bfa5;
+    text-align: center;
+    font-weight: 700;
+    padding: 50px;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    color: #00bfa5;
+  }
+
+  .cards {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .card {
+    background: #1f1f1f;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgb(0 191 165 / 0.25);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgb(0 191 165 / 0.5);
+  }
+
+  .card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 16px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #00bfa5;
+  }
+
+  .card-content p {
+    font-size: 0.95rem;
+    flex-grow: 1;
+    color: #cbd8d8;
+  }
+
+  .card-content a.read-more {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #00f5d4;
+    align-self: flex-start;
+    transition: color 0.3s ease;
+  }
+
+  .card-content a.read-more:hover, .card-content a.read-more:focus {
+    color: #33ffd6;
+    outline:none;
+  }
+
+  .news-update {
+    background: #1a1a1a;
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+
+  .news-update h3 {
+    color: #00bfa5;
+    margin-bottom: 12px;
+  }
+
+  .news-update p {
+    margin-bottom: 8px;
+  }
+
+  .news-update ul {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  footer {
+    background: #181818;
+    color: #888;
+    padding: 40px 24px;
+  }
+
+  footer .footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: space-between;
+  }
+
+  footer .footer-column {
+    min-width: 220px;
+  }
+
+  footer h4 {
+    font-size: 1.2rem;
+    color: #00bfa5;
+    margin-bottom: 12px;
+  }
+
+  footer a {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #888;
+  }
+  footer a:hover, footer a:focus {
+    color: #00bfa5;
+    outline:none;
+  }
+
+  /* Responsive */
+
+  @media (max-width: 767px) {
+    nav {
+      display: none;
+      flex-direction: column;
+      background: #1f1f1f;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 180px;
+      border-radius: 0 0 0 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    nav.open {
+      display: flex;
+    }
+
+    .mobile-toggle {
+      display: block;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <div class="logo" tabindex="0">EsportID</div>
+    <button aria-label="Toggle menu" class="mobile-toggle" aria-expanded="false">&#9776;</button>
+    <nav>
+      <a href="#berita" tabindex="0">Berita</a>
+      <a href="#update" tabindex="0">Update Terkini</a>
+      <a href="#tim" tabindex="0">Tim Terkenal</a>
+      <a href="#event" tabindex="0">Event</a>
+      <a href="#kontak" tabindex="0">Kontak</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-label="Perkenalan esports">
+    <h1>Informasi Terkini tentang Dunia Esports</h1>
+    <p>Jelajahi berita, tim, dan event terbaru di dunia esports. Situs ini memberikan update terpercaya dan penuh wawasan untuk penggemar dan pelaku esports di Indonesia.</p>
+  </section>
+
+  <section id="update" class="container" aria-label="Update Terkini Esports">
+    <h2>Update Terkini Esports 2025</h2>
+    
+    <div class="news-update">
+      <h3>Esports World Cup 2025</h3>
+      <p>Turnamen esports terbesar di tahun 2025 dengan hadiah total $60 juta akan menampilkan berbagai game populer:</p>
+      <ul>
+        <li>Call of Duty: Black Ops 6</li>
+        <li>Honor of Kings</li>
+        <li>Free Fire</li>
+        <li>Dota 2</li>
+        <li>League of Legends</li>
+        <li>Valorant</li>
+      </ul>
+      <p>Turnamen akan diadakan di Riyadh, Arab Saudi dengan jadwal utama dimulai Juli 2025.</p>
+    </div>
+    
+    <div class="news-update">
+      <h3>Prestasi Tim Indonesia</h3>
+      <p>Tim-tim Indonesia menunjukkan performa gemilang di kancah internasional:</p>
+      <ul>
+        <li><strong>Onic Indonesia</strong> juara FFWS SEA 2025 Spring, menghentikan dominasi tim Thailand</li>
+        <li><strong>Evos Esports</strong> berhasil lolos ke Esports World Cup 2025</li>
+        <li>24 atlet esports dipersiapkan untuk SEA Games 2025</li>
+      </ul>
+    </div>
+    
+    <div class="news-update">
+      <h3>Game Esports Terpopuler di Indonesia 2025</h3>
+      <ol>
+        <li>Mobile Legends: Bang Bang</li>
+        <li>PUBG Mobile</li>
+        <li>Valorant</li>
+        <li>Free Fire</li>
+        <li>Dota 2</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="berita" class="container" aria-label="Berita Esport Terbaru">
+    <h2>Berita Terbaru</h2>
+    <div class="cards">
+      <article class="card" tabindex="0">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f3417ec2-38c6-4c24-bad7-cdb8be67cec4.png" alt="Pemain esports sedang bertanding dalam turnamen internasional" />
+        <div class="card-content">
+          <h3>Esports World Cup 2025 Resmi Dibuka</h3>
+          <p>Turnamen esports terbesar tahun 2025 dengan hadiah $60 juta akan menampilkan berbagai game populer dari seluruh dunia.</p>
+          <a href="https://www.upstation.media/article/msc-2025-ewc" class="read-more" tabindex="0" >Selengkapnya</a>
+        </div>
+      </article>
+      <article class="card" tabindex="0">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bee4f378-c520-4dbc-967f-04f62cf2ed60.png" alt="Tim esports sedang menerima penghargaan kemenangan di panggung" />
+        <div class="card-content">
+          <h3>Onic Juara FFWS SEA 2025 Spring</h3>
+          <p>Tim Onic Indonesia berhasil menjadi juara FFWS SEA 2025 Spring, menghentikan dominasi tim Thailand di turnamen Free Fire.</p>
+          <a href="https://kumparan.com/kumparansport/ukir-sejarah-baru-perjuangan-tim-free-fire-indonesia-menang-ffws-sea-2025-25IyqmG7bHx#:~:text=ONIC%20juara%20FFWS%20SEA%202025,meraih%20Booyah%20di%20Game%209." class="read-more" tabindex="0">Selengkapnya</a>
+        </div>
+      </article>
+      <article class="card" tabindex="0">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d24c5626-1a60-433a-85cf-0ab4cce8577d.png" alt="Penggemar esports menyaksikan pertandingan secara daring di depan komputer" />
+        <div class="card-content">
+          <h3>Esports Makin Berkembang di Indonesia</h3>
+          <p>Industri esports Indonesia diproyeksikan semakin berkembang di tahun 2025 dengan dukungan penuh dari pemerintah dan komunitas.</p>
+          <a href="https://kumparan.com/ahmad-umar-ghazali/eksistensi-olahraga-esports-di-indonesia-semakin-berkembang-apa-saja-faktornya-1yGjiImsVH6" class="read-more" tabindex="0" >Selengkapnya</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="tim" class="container" aria-label="Tim Esport Terkenal">
+    <h2>Tim Esport Terkenal</h2>
+    <div class="cards">
+      <article class="card" tabindex="0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm4GzTUvqHAXfy2DdW1ng72f1ctBUuKkyRSg&s" alt="Logo dan gambar tim esports Evos" />
+        <div class="card-content">
+          <h3>Evos</h3>
+          <p>Tim esports Indonesia yang telah lolos ke Esports World Cup 2025 dan dikenal dengan strategi inovatif di berbagai game kompetitif.</p>
+          <a href="https://www.evos.gg/id" class="read-more" tabindex="0" >Selengkapnya</a>
+        </div>
+      </article>
+      <article class="card" tabindex="0">
+        <img src="https://www.gamereactor.asia/media/29/teamliquidpromises_4552923b.png" alt="Logo dan gambar tim esports Team Liquid" />
+        <div class="card-content">
+          <h3>Team Liquid</h3>
+          <p>Organisasi esports internasional dengan prestasi besar di berbagai turnamen global dan memiliki basis penggemar yang luas.</p>
+          <a href="https://teamliquid.com/id" class="read-more" tabindex="0" >Selengkapnya</a>
+        </div>
+      </article>
+      <article class="card" tabindex="0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWDf2TE2PjqIzHAylnag-vY6yIpRMEzi6G5Q&s" alt="Logo dan gambar tim esports Team Secret" />
+        <div class="card-content">
+          <h3>Team Secret</h3>
+          <p>Tim esports internasional yang terkenal dengan pendekatan strategis dan telah meraih banyak prestasi di turnamen Dota 2.</p>
+          <a href="https://teamsecret.gg/?srsltid=AfmBOoqbq0x4n-_Z_xC53DcQAPPpgqN_Pj-Vyicp3LVYMxo2CEKpbnvj" class="read-more" tabindex="0" >Selengkapnya</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="event" class="container" aria-label="Event Esport Mendatang">
+    <h2>Event Esport Mendatang</h2>
+    <div class="cards">
+      <article class="card" tabindex="0">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c742ca34-0da2-42d2-9615-9c0daa0b2eda.png" alt="Panggung dan penonton pada event esports internasional" />
+        <div class="card-content">
+          <h3>Esports World Cup 2025</h3>
+          <p>Turnamen esports terbesar tahun 2025 dengan hadiah $60 juta akan digelar di Riyadh, Arab Saudi mulai Juli 2025.</p>
+          <a href="https://esportsworldcup.com/en" class="read-more" tabindex="0">Selengkapnya</a>
+        </div>
+      </article>
+      <article class="card" tabindex="0">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f3ccce66-3532-4c24-8e55-4cbed59a74a8.png" alt="Peserta esports bertanding di sebuah arena indoor" />
+        <div class="card-content">
+          <h3>PMSL SEA Summer 2025</h3>
+          <p>Grand Final turnamen PUBG Mobile akan digelar pada 22 Juni 2025 di Jakarta, diikuti oleh 16 tim terbaik Asia Tenggara.</p>
+          <a href="https://liquipedia.net/pubgmobile/PUBG_Mobile_Super_League/Southeast_Asia/2025/Summer" class="read-more" tabindex="0">Selengkapnya</a>
+       </div>
+     </article>
+   </div>
+  </section>
+</main>
+
+
+<footer aria-label="Informasi kontak dan sosial media">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Kontak Kami</h4>
+      <a href="mailto:info@esportid.com" tabindex="0">info@esportid.com</a>
+      <a href="tel:+622112345678" tabindex="0">+62 21 1234 5678</a>
+    </div>
+    <div class="footer-column">
+      <h4>Sosial Media</h4>
+      <a href="https://facebook.com/esportid" target="_blank" rel="noopener" tabindex="0">Facebook</a>
+      <a href="https://twitter.com/esportid" target="_blank" rel="noopener" tabindex="0">Twitter</a>
+      <a href="https://instagram.com/esportid" target="_blank" rel="noopener" tabindex="0">Instagram</a>
+    </div>
+  </div>
+</footer>
